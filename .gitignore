@@ -1,5 +1,7 @@
 .gradle
 .metadata
+.project
+.settings
 build
 bin
 *.class
