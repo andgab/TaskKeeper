@@ -1,8 +1,16 @@
 .gradle
 .metadata
-build/
-bin/
+build
+bin
 *.class
+.idea
+*.iml
+classes
+.directory
+.DS_Store
+.classpath
+*.ipr
+*.iws
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
