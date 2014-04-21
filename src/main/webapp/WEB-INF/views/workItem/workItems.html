@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>TaskKeeper - Brf Dammen</title>
+
+<link href="/resources/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/resources/css/navbar-fixed-top.css" rel="stylesheet" />
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div th:include="layout :: head"></div>
+
+	<div class="container">
+
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<b>Ärenden</b>
+			</div>
+			<div class="panel-body">
+
+				<p>
+					<a class="btn btn-primary" href="#createWorkItem" role="button">Skapa nytt ärende</a>
+				</p>
+
+				<table class="table">
+					<colgroup>
+						<col style="width: 100px;">
+						<col style="width: 100px;">
+						<col>
+						<col style="width: 100px;">
+						<col style="width: 150px;">
+						<col style="width: 50px;">
+					</colgroup>
+
+					<thead>
+						<tr>
+							<th>#Nr</th>
+							<th>Senast klar</th>
+							<th>Titel</th>
+							<th>Skapad</th>
+							<th>Ansvarig</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="item,status : ${workItems}">
+							<td><a href="#/viewWorkItem">2014-1</a></td>
+							<td th:text="${item.doDate}"></td>
+							<td><a href="#/viewWorkItem" a:text="${item.title}"></a></td>
+							<td th:text="${item.createDate}"></td>
+							<td>@mdo</td>
+							<td th:text="${item.doDate}">Pågående</td>
+						</tr>
+						<tr th:remove="all">
+							<td><a href="#/viewWorkItem">2014-0002</td>
+							<td>2014-03-28</td>
+							<td><a href="#/viewWorkItem">Spolning avlopp2</a></td>
+							<td>2014-03-18</td>
+							<td>@fat</td>
+							<td>Utförd</td>
+						</tr>
+					</tbody>
+				</table>
+
+
+			</div>
+		</div>
+
+	</div>
+	</div>
+
+	<div th:include="layout :: foot"></div>
+
+	</div>
+	<!-- /container -->
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="/resources/lib/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>
+
+
