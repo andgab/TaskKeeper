@@ -15,7 +15,7 @@ public class WorkItemsFixtures {
 		
 		
 		workItem.setId(id++);
-		workItem.setTitle("Test WorkItem");
+		workItem.setTitle("Test WorkItemInfo");
 		workItem.setDescription("Test text");
 		workItem.setDoDate(new Date());
 		workItem.setDoneDate(new Date());

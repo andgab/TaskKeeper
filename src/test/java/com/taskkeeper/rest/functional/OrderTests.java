@@ -35,7 +35,7 @@ public class OrderTests {
     assertTrue(path.startsWith("/aggregators/orders/"));
     WorkItem order = entity.getBody();
 
-    System.out.println ("The WorkItem ID is " + order.getKey());
+    System.out.println ("The WorkItemInfo ID is " + order.getKey());
     System.out.println ("The Location is " + entity.getHeaders().getLocation());
 
     assertEquals(2, order.getItems().size());

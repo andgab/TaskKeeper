@@ -37,7 +37,7 @@ public class WorkItemRepositoryFindWorkItemContainingTests {
 //    workItemRepository.save(PersistenceFixture.standardWorkItem());
 //    workItemRepository.save(PersistenceFixture.standardWorkItem());
 //
-//    WorkItem retrievedWorkItem = workItemRepository.findById(1L);
+//    WorkItemInfo retrievedWorkItem = workItemRepository.findById(1L);
 //
 //    assertNotNull(retrievedWorkItem);
 //    assertEquals(2, retrievedWorkItem.size());

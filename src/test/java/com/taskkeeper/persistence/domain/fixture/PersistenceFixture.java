@@ -13,7 +13,7 @@ public class PersistenceFixture {
     WorkItem workItem = new WorkItem();
 
     workItem.setId(id++);
-    workItem.setTitle("Test WorkItem");
+    workItem.setTitle("Test WorkItemInfo");
     workItem.setDescription("Test text");
     workItem.setCreateDate(new Date());
     workItem.setDoDate(new Date());

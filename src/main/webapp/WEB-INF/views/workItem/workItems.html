@@ -28,17 +28,18 @@
 			<div class="panel-body">
 
 				<p>
-					<a class="btn btn-primary" href="#createWorkItem" role="button">Skapa nytt ärende</a>
+					<a class="btn btn-primary" href="/createWorkItem" role="button">Skapa
+						nytt ärende</a>
 				</p>
 
 				<table class="table">
 					<colgroup>
-						<col style="width: 100px;">
-						<col style="width: 100px;">
-						<col>
-						<col style="width: 100px;">
-						<col style="width: 150px;">
-						<col style="width: 50px;">
+						<col style="width: 100px;" />
+						<col style="width: 100px;" />
+						<col />
+						<col style="width: 100px;" />
+						<col style="width: 150px;" />
+						<col style="width: 50px;" />
 					</colgroup>
 
 					<thead>
@@ -58,10 +59,10 @@
 							<td><a href="#/viewWorkItem" a:text="${item.title}"></a></td>
 							<td th:text="${item.createDate}"></td>
 							<td>@mdo</td>
-							<td th:text="${item.doDate}">Pågående</td>
+							<td th:text="${item.status}">Pågående</td>
 						</tr>
 						<tr th:remove="all">
-							<td><a href="#/viewWorkItem">2014-0002</td>
+							<td><a href="#/viewWorkItem">2014-0002</a></td>
 							<td>2014-03-28</td>
 							<td><a href="#/viewWorkItem">Spolning avlopp2</a></td>
 							<td>2014-03-18</td>
@@ -75,10 +76,7 @@
 			</div>
 		</div>
 
-	</div>
-	</div>
-
-	<div th:include="layout :: foot"></div>
+		<div th:include="layout :: foot"></div>
 
 	</div>
 	<!-- /container -->

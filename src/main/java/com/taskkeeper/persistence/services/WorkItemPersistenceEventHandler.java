@@ -61,7 +61,7 @@ public class WorkItemPersistenceEventHandler implements WorkItemPersistenceServi
 /*
   @Override
   public OrderUpdatedEvent setOrderPayment(SetOrderPaymentEvent setOrderPaymentEvent) {
-    WorkItem order = workItemRepository.findOne(setOrderPaymentEvent.getKey().toString());
+    WorkItemInfo order = workItemRepository.findOne(setOrderPaymentEvent.getKey().toString());
 
     if (order == null) {
       return OrderUpdatedEvent.notFound(setOrderPaymentEvent.getKey());

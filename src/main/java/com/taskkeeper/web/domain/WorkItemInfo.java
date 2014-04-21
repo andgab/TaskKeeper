@@ -1,26 +1,34 @@
 package com.taskkeeper.web.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.BeanUtils;
 
 import com.taskkeeper.events.workitem.WorkItemDetails;
 
-public class WorkItem {
+public class WorkItemInfo implements Serializable {
 
   private Long id;
+  
+  @NotNull
+  @NotEmpty
   private String title;
+  
+  @NotNull
+  @NotEmpty
   private String description;
   private Integer status;
+  
+  @NotNull
+  @NotEmpty
   private Date doDate;
   private Date doneDate;
   private Date createDate;
   private Date lastUpdate;
-
-  public WorkItem(final Date createDate) {
-    this.id = null;
-    this.createDate = createDate;
-  }
 
   public Long getId() {
     return id;
@@ -74,6 +82,10 @@ public class WorkItem {
     return createDate;
   }
 
+  public void setCreateDate(Date createDate) {
+    this.createDate = createDate;
+  }
+
   public Date getLastUpdate() {
     return lastUpdate;
   }
@@ -89,8 +101,8 @@ public class WorkItem {
     return details;
   }
 
-  public static WorkItem fromWorkItemDetails(WorkItemDetails workItemDetails) {
-    WorkItem workItem = new WorkItem(workItemDetails.getCreateDate());
+  public static WorkItemInfo fromWorkItemDetails(WorkItemDetails workItemDetails) {
+    WorkItemInfo workItem = new WorkItemInfo();
 
     BeanUtils.copyProperties(workItemDetails, workItem);
     return workItem;

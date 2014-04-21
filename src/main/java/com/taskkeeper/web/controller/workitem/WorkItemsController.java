@@ -15,7 +15,7 @@ import com.taskkeeper.core.services.WorkItemService;
 import com.taskkeeper.events.workitem.AllWorkItemsEvent;
 import com.taskkeeper.events.workitem.RequestAllWorkItemsEvent;
 import com.taskkeeper.events.workitem.WorkItemDetails;
-import com.taskkeeper.web.domain.WorkItem;
+import com.taskkeeper.web.domain.WorkItemInfo;
 
 @Controller
 @RequestMapping("/workItems")
@@ -31,14 +31,14 @@ public class WorkItemsController {
     
     model.addAttribute("workItems", getWorkItems(workItemService.requestAllWorkItems(new RequestAllWorkItemsEvent())));
     
-    return "workItem/workitems";
+    return "/workItem/workItems";
   }
 
-  private List<WorkItem> getWorkItems(AllWorkItemsEvent allWorkItemsEvent) {
-    List<WorkItem> workItems = new ArrayList<WorkItem>();
+  private List<WorkItemInfo> getWorkItems(AllWorkItemsEvent allWorkItemsEvent) {
+    List<WorkItemInfo> workItems = new ArrayList<WorkItemInfo>();
 
     for (WorkItemDetails workItemDetails : allWorkItemsEvent.getWorkItemDetails()) {
-      workItems.add(WorkItem.fromWorkItemDetails(workItemDetails));
+      workItems.add(WorkItemInfo.fromWorkItemDetails(workItemDetails));
     }
     return workItems;
   }
