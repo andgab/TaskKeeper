@@ -1,6 +1,6 @@
 package com.taskkeeper.rest.domain;
 
-import com.taskkeeper.events.orders.OrderStatusDetails;
+import com.taskkeeper.events.workitem.OrderStatusDetails;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

@@ -42,9 +42,9 @@ public class RestDomainIntegrationTest {
   }
   
   @Test
-  public void addANewOrderToTheSystem() throws Exception  {
+  public void addANewWorkItemToTheSystem() throws Exception  {
     this.mockMvc.perform(
-            post("/aggregators/orders")
+            post("/aggregators/workitem")
                     .content(standardOrderJSON())
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON))
@@ -52,7 +52,7 @@ public class RestDomainIntegrationTest {
             .andExpect(status().isCreated());
 
     this.mockMvc.perform(
-            get("/aggregators/orders")
+            get("/aggregators/workitem")
                     .accept(MediaType.APPLICATION_JSON))
             .andDo(print())
             .andExpect(status().isOk())

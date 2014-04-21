@@ -1,8 +1,8 @@
 package com.taskkeeper.rest.controller;
 
-import com.taskkeeper.core.services.OrderService;
-import com.taskkeeper.events.orders.OrderStatusEvent;
-import com.taskkeeper.events.orders.RequestOrderStatusEvent;
+import com.taskkeeper.core.services.WorkItemService;
+import com.taskkeeper.events.workitem.OrderStatusEvent;
+import com.taskkeeper.events.workitem.RequestOrderStatusEvent;
 import com.taskkeeper.rest.domain.OrderStatus;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +20,12 @@ import java.util.UUID;
 public class OrderStatusController {
 	
   @Autowired
-  private OrderService orderService;
+  private WorkItemService orderService;
   
-  @RequestMapping(method = RequestMethod.GET)
+/*  @RequestMapping(method = RequestMethod.GET)
   public ResponseEntity<OrderStatus> getOrderStatus(@PathVariable String id) {
 
-    OrderStatusEvent orderStatusEvent = orderService.requestOrderStatus(new RequestOrderStatusEvent(UUID.fromString(id)));
+    OrderStatusEvent orderStatusEvent = workItemService.requestOrderStatus(new RequestOrderStatusEvent(UUID.fromString(id)));
 
     if (!orderStatusEvent.isEntityFound()) {
       return new ResponseEntity<OrderStatus>(HttpStatus.NOT_FOUND);
@@ -36,6 +36,6 @@ public class OrderStatusController {
                     orderStatusEvent.getOrderKey(),
                     orderStatusEvent.getOrderStatus()),
             HttpStatus.OK);
-  }
+  }*/
 
 }

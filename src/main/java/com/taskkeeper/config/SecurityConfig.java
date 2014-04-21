@@ -64,10 +64,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       	.permitAll()
       	.and()
     	.authorizeRequests()
-        .antMatchers("/home").hasRole("USER")
+        //.antMatchers("/home").hasRole("USER")
         //.antMatchers("/aggregators/**").hasRole("USER")
-        //.anyRequest().anonymous();
-        .anyRequest().authenticated()
+        .anyRequest().anonymous()
+        //.anyRequest().authenticated()
         .and()
       .csrf()
     		.disable(); // Fix this !!!

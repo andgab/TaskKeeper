@@ -5,33 +5,33 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-import com.taskkeeper.events.orders.*;
+import com.taskkeeper.events.workitem.*;
 
 
 
 public class RestDataFixture {
 	public static final String YUMMY_ITEM = "yummy1";
 	
-  public static AllOrdersEvent allOrders() {
-    List<OrderDetails> orders = new ArrayList<OrderDetails>();
+  public static AllWorkItemsEvent allWorkItems() {
+    List<WorkItemDetails> workItems = new ArrayList<WorkItemDetails>();
 
-    orders.add(standardOrderDetails());
-    orders.add(standardOrderDetails());
-    orders.add(standardOrderDetails());
+    workItems.add(standardWorkItemDetails());
+    workItems.add(standardWorkItemDetails());
+    workItems.add(standardWorkItemDetails());
 
-    return new AllOrdersEvent(orders);
+    return new AllWorkItemsEvent(workItems);
   }
 	
 	
-	public static OrderDetails customKeyOrderDetails(UUID key) {
-		OrderDetails orderdetatils = new OrderDetails(key);
+	public static WorkItemDetails customKeyOrderDetails(UUID key) {
+		WorkItemDetails orderdetatils = new WorkItemDetails(key);
 		
 		orderdetatils.setOrderItems(Collections.singletonMap(YUMMY_ITEM, 12));
 		
 		return orderdetatils;
 	}
 	
-  public static OrderDetails standardOrderDetails() {
+  public static WorkItemDetails standardWorkItemDetails() {
     return customKeyOrderDetails(UUID.randomUUID());
   }
   

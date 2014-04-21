@@ -1,29 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="" />
-<meta name="author" content="Simplicity Itself" />
 
-<title>Yummy Noodle Bar</title>
+<title>TaskKeeper - Brf Dammen</title>
 
-<link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-</link>
-<style type="text/css">
-body {
-	padding-top: 60px;
-	padding-bottom: 40px;
-}
-
-.sidebar-nav {
-	padding: 9px 0;
-}
-</style>
-<!-- See http://twitter.github.com/bootstrap/scaffolding.html#responsive -->
-<link href="/resources/css/bootstrap-responsive.min.css"
-	rel="stylesheet">
-</link>
+<link href="/resources/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/resources/css/navbar-fixed-top.css" rel="stylesheet" />
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -33,60 +18,72 @@ body {
 <body>
 	<div th:include="layout :: head"></div>
 
-
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<b>Add User</b>
-		</div>
-
-		<form method="POST" th:object="${userInfo}">
-			<div class="panel-body">
+	<div class="container">
 
 
-				<div class="row">
-					<div class="col-md-8">
-						<div class="row">
-							<div class="form-group col-md-6">
-								<label for="firtsName">First name:</label> 
-								<input type="text" class="form-control" id="firtsName" placeholder="First name" th:field="*{firstName}"/>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<b>Add User</b>
+			</div>
+
+			<form method="POST" th:object="${userInfo}">
+				<div class="panel-body">
+
+
+					<div class="row">
+						<div class="col-md-8">
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label for="firtsName">First name:</label> <input type="text"
+										class="form-control" id="firtsName" placeholder="First name"
+										th:field="*{firstName}" />
+								</div>
+
+								<div class="form-group col-md-6">
+									<label for="lastName">Last name:</label> <input type="text"
+										class="form-control" id="lastName" placeholder="Last name"
+										th:field="*{lastName}" />
+								</div>
 							</div>
 
-							<div class="form-group col-md-6">
-								<label for="lastName">Last name:</label> 
-								<input type="text" class="form-control" id="lastName" placeholder="Last name" th:field="*{lastName}"/>
-							</div>
-						</div>
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label for="userName">User name:</label> <input type="text"
+										class="form-control" id="userName" placeholder="User name"
+										th:field="*{username}" />
+								</div>
 
-						<div class="row">
-							<div class="form-group col-md-6">
-								<label for="userName">User name:</label> 
-								<input type="text" class="form-control" id="userName" placeholder="User name" th:field="*{username}"/>
-							</div>
+								<div class="form-group col-md-6">
+									<label for="userName">Password:</label> <input type="text"
+										class="form-control" id="userName" placeholder="User name"
+										th:field="*{password}" />
+								</div>
 
-							<div class="form-group col-md-6">
-								<label for="userName">Password:</label> 
-								<input type="text" class="form-control" id="userName" placeholder="User name" th:field="*{password}"/>
-							</div>
 
+							</div>
 
 						</div>
 
 					</div>
 
+					<p>
+						<button type="submit" class="btn btn-primary">Save</button>
+					</p>
+
 				</div>
+			</form>
+		</div>
 
-				<p>
-					<button type="submit" class="btn btn-primary">Save</button>
-				</p>
 
-			</div>
-		</form>
+
+		<div th:include="layout :: foot"></div>
+
 	</div>
+	<!-- /container -->
 
-
-
-
-	<div th:include="layout :: foot"></div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="/resources/lib/bootstrap/bootstrap.min.js"></script>
 </body>
 </html>
 

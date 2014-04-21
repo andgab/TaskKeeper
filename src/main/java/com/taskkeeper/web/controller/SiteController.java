@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.taskkeeper.core.services.OrderService;
+import com.taskkeeper.core.services.WorkItemService;
 
 
 @Controller
@@ -19,7 +19,7 @@ public class SiteController {
     private static final Logger LOG = LoggerFactory.getLogger(SiteController.class);
 
     @Autowired
-    private OrderService orderService;
+    private WorkItemService orderService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String getCurrentMenu(Model model) {

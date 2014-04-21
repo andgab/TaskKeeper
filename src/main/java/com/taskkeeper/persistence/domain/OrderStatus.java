@@ -1,6 +1,6 @@
 package com.taskkeeper.persistence.domain;
 
-import com.taskkeeper.events.orders.OrderStatusDetails;
+import com.taskkeeper.events.workitem.OrderStatusDetails;
 
 import java.util.Date;
 import java.util.UUID;

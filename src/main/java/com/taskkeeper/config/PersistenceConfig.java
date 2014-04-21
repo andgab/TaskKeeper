@@ -3,10 +3,10 @@ package com.taskkeeper.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.taskkeeper.persistence.repository.OrdersRepository;
-import com.taskkeeper.persistence.repository.UsersRepository;
-import com.taskkeeper.persistence.services.OrderPersistenceEventHandler;
-import com.taskkeeper.persistence.services.OrderPersistenceService;
+import com.taskkeeper.persistence.repository.WorkItemRepository;
+import com.taskkeeper.persistence.repository.UserRepository;
+import com.taskkeeper.persistence.services.WorkItemPersistenceEventHandler;
+import com.taskkeeper.persistence.services.WorkItemPersistenceService;
 import com.taskkeeper.persistence.services.UserPersistenceEventHandler;
 import com.taskkeeper.persistence.services.UserPersistenceService;
 
@@ -14,13 +14,13 @@ import com.taskkeeper.persistence.services.UserPersistenceService;
 public class PersistenceConfig {
 	
   @Bean
-  public OrderPersistenceService orderPersistenceService(OrdersRepository ordersRepository) {
-    return new OrderPersistenceEventHandler(ordersRepository);
+  public WorkItemPersistenceService orderPersistenceService(WorkItemRepository ordersRepository) {
+    return new WorkItemPersistenceEventHandler(ordersRepository);
   }
   
   
   @Bean
-  public UserPersistenceService userPersistenceService(UsersRepository usersRepository) {
+  public UserPersistenceService userPersistenceService(UserRepository usersRepository) {
     return new UserPersistenceEventHandler(usersRepository);
   }
 

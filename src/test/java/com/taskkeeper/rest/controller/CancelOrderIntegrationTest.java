@@ -1,8 +1,8 @@
 package com.taskkeeper.rest.controller;
 
-import com.taskkeeper.core.services.OrderService;
-import com.taskkeeper.events.orders.DeleteOrderEvent;
-import com.taskkeeper.rest.controller.OrderCommandsController;
+import com.taskkeeper.core.services.WorkItemService;
+import com.taskkeeper.events.workitem.DeleteWorkItemEvent;
+import com.taskkeeper.rest.controller.WorkItemCommandsController;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -28,10 +28,10 @@ public class CancelOrderIntegrationTest {
 	MockMvc mockMvc;
 
 	@InjectMocks
-	OrderCommandsController controller;
+	WorkItemCommandsController controller;
 
 	@Mock
-	OrderService orderService;
+	WorkItemService orderService;
 
 	UUID key = UUID.fromString("f3512d26-72f6-4290-9265-63ad69eccc13");
 
@@ -47,7 +47,7 @@ public class CancelOrderIntegrationTest {
 	@Test
 	public void thatDeleteOrderUsesHttpOkOnSuccess() throws Exception {
 
-		when(orderService.deleteOrder(any(DeleteOrderEvent.class))).thenReturn(
+		when(orderService.deleteWorkItem(any(DeleteWorkItemEvent.class))).thenReturn(
 		    orderDeleted(key));
 
 		this.mockMvc
@@ -56,8 +56,8 @@ public class CancelOrderIntegrationTest {
 		            MediaType.APPLICATION_JSON)).andDo(print())
 		    .andExpect(status().isOk());
 
-		verify(orderService).deleteOrder(
-		    argThat(Matchers.<DeleteOrderEvent> hasProperty("key",
+		verify(orderService).deleteWorkItem(
+		    argThat(Matchers.<DeleteWorkItemEvent> hasProperty("key",
 		        Matchers.equalTo(key))));
 	}
 
@@ -65,7 +65,7 @@ public class CancelOrderIntegrationTest {
 	public void thatDeleteOrderUsesHttpNotFoundOnEntityLookupFailure()
 	    throws Exception {
 
-		when(orderService.deleteOrder(any(DeleteOrderEvent.class))).thenReturn(
+		when(orderService.deleteWorkItem(any(DeleteWorkItemEvent.class))).thenReturn(
 		    orderDeletedNotFound(key));
 
 		this.mockMvc
@@ -79,7 +79,7 @@ public class CancelOrderIntegrationTest {
   @Test
   public void thatDeleteOrderUsesHttpForbiddenOnEntityDeletionFailure() throws Exception {
 
-    when(orderService.deleteOrder(any(DeleteOrderEvent.class)))
+    when(orderService.deleteWorkItem(any(DeleteWorkItemEvent.class)))
             .thenReturn(
                     orderDeletedFailed(key));
 

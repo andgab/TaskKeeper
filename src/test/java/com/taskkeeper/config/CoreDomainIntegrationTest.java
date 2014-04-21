@@ -4,11 +4,11 @@ import com.taskkeeper.config.CoreConfig;
 import com.taskkeeper.config.JPAConfiguration;
 import com.taskkeeper.config.PersistenceConfig;
 import com.taskkeeper.config.StandaloneDataConfig;
-import com.taskkeeper.core.services.OrderService;
-import com.taskkeeper.events.orders.AllOrdersEvent;
-import com.taskkeeper.events.orders.CreateOrderEvent;
-import com.taskkeeper.events.orders.OrderDetails;
-import com.taskkeeper.events.orders.RequestAllOrdersEvent;
+import com.taskkeeper.core.services.WorkItemService;
+import com.taskkeeper.events.workitem.AllWorkItemsEvent;
+import com.taskkeeper.events.workitem.CreateWorkItemEvent;
+import com.taskkeeper.events.workitem.RequestAllWorkItemsEvent;
+import com.taskkeeper.events.workitem.WorkItemDetails;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,18 +23,18 @@ import static junit.framework.TestCase.*;
 public class CoreDomainIntegrationTest {
 	
   @Autowired
-  OrderService orderService;
+  WorkItemService workItemService;
   
   @Test
   public void addANewOrderToTheSystem() {
 
-    CreateOrderEvent ev = new CreateOrderEvent(new OrderDetails());
+    CreateWorkItemEvent ev = new CreateWorkItemEvent(new WorkItemDetails());
 
-    orderService.createOrder(ev);
+    workItemService.createWorkItem(ev);
 
-    AllOrdersEvent allOrders = orderService.requestAllOrders(new RequestAllOrdersEvent());
+    AllWorkItemsEvent allWorkItems = workItemService.requestAllWorkItems(new RequestAllWorkItemsEvent());
 
-    assertEquals(1, allOrders.getOrdersDetails().size());
+    assertEquals(1, allWorkItems.getWorkItemDetails().size());
   }
 
 }

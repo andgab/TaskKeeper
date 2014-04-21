@@ -3,7 +3,7 @@ package com.taskkeeper.rest.controller.fixture;
 import java.util.Date;
 import java.util.UUID;
 
-import com.taskkeeper.events.orders.*;
+import com.taskkeeper.events.workitem.*;
 
 import static com.taskkeeper.rest.controller.fixture.RestDataFixture.*;
 
@@ -17,28 +17,28 @@ public class RestEventFixtures {
     return new OrderStatusEvent(OrderKey, new OrderStatusDetails(OrderKey, statusKey, new Date(), status));
   }
   
-	public static OrderDetailsEvent orderDetailsNotFound(UUID OrderKey) {
-		return OrderDetailsEvent.notFound(OrderKey);
+	public static WorkItemEvent orderDetailsNotFound(UUID OrderKey) {
+		return WorkItemEvent.notFound(OrderKey);
 	}
 
-	public static OrderDetailsEvent orderDetailsEvent(UUID OrderKey) {
-		return new OrderDetailsEvent(OrderKey, customKeyOrderDetails(OrderKey));
+	public static WorkItemEvent orderDetailsEvent(UUID OrderKey) {
+		return new WorkItemEvent(OrderKey, customKeyOrderDetails(OrderKey));
 	}
 	
-  public static OrderCreatedEvent orderCreated(UUID OrderKey) {
-    return new OrderCreatedEvent(OrderKey, customKeyOrderDetails(OrderKey));
+  public static WorkItemCreatedEvent orderCreated(UUID OrderKey) {
+    return new WorkItemCreatedEvent(OrderKey, customKeyOrderDetails(OrderKey));
   }
 	
-  public static OrderDeletedEvent orderDeleted(UUID OrderKey) {
-    return new OrderDeletedEvent(OrderKey, standardOrderDetails());
+  public static WorkItemDeletedEvent orderDeleted(UUID OrderKey) {
+    return new WorkItemDeletedEvent(OrderKey, standardWorkItemDetails());
   }
   
-  public static OrderDeletedEvent orderDeletedFailed(UUID OrderKey) {
-    return OrderDeletedEvent.deletionForbidden(OrderKey, standardOrderDetails());
+  public static WorkItemDeletedEvent orderDeletedFailed(UUID OrderKey) {
+    return WorkItemDeletedEvent.deletionForbidden(OrderKey, standardWorkItemDetails());
   } 
   
-  public static OrderDeletedEvent orderDeletedNotFound(UUID OrderKey) {
-    return OrderDeletedEvent.notFound(OrderKey);
+  public static WorkItemDeletedEvent orderDeletedNotFound(UUID OrderKey) {
+    return WorkItemDeletedEvent.notFound(OrderKey);
   }
 
 }

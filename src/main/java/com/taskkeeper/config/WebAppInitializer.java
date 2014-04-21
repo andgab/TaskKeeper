@@ -28,7 +28,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
 	private WebApplicationContext createRootContext(ServletContext servletContext) {
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-		rootContext.register(MysqlDataConfig.class, JPAConfiguration.class,
+		rootContext.register(MysqlDataConfig.class, StandaloneDataConfig.class, JPAConfiguration.class,
 		    PersistenceConfig.class, CoreConfig.class, SecurityConfig.class);
 		rootContext.refresh();
 

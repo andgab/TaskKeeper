@@ -1,9 +1,9 @@
 package com.taskkeeper.rest.controller;
 
 
-import com.taskkeeper.core.services.OrderService;
-import com.taskkeeper.events.orders.RequestOrderDetailsEvent;
-import com.taskkeeper.rest.controller.OrderQueriesController;
+import com.taskkeeper.core.services.WorkItemService;
+import com.taskkeeper.events.workitem.RequestWorkItemEvent;
+import com.taskkeeper.rest.controller.WorkItemQueriesController;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,10 +30,10 @@ public class ViewOrderXmlIntegrationTest {
   MockMvc mockMvc;
 
   @InjectMocks
-  OrderQueriesController controller;
+  WorkItemQueriesController controller;
 
   @Mock
-  OrderService orderService;
+  WorkItemService orderService;
 
   UUID key = UUID.fromString("f3512d26-72f6-4290-9265-63ad69eccc13");
   
@@ -50,7 +50,7 @@ public class ViewOrderXmlIntegrationTest {
   @Test
   public void thatViewOrderRendersXMLCorrectly() throws Exception {
 
-    when(orderService.requestOrderDetails(any(RequestOrderDetailsEvent.class))).thenReturn(
+    when(orderService.requestWorkItem(any(RequestWorkItemEvent.class))).thenReturn(
             orderDetailsEvent(key));
 
     this.mockMvc.perform(
@@ -64,7 +64,7 @@ public class ViewOrderXmlIntegrationTest {
   @Test
   public void thatViewOrderRendersJsonCorrectly() throws Exception {
 
-    when(orderService.requestOrderDetails(any(RequestOrderDetailsEvent.class))).thenReturn(
+    when(orderService.requestWorkItem(any(RequestWorkItemEvent.class))).thenReturn(
             orderDetailsEvent(key));
 
     //TODOCUMENT JSON Path in use here (really like this)

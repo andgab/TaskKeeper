@@ -11,9 +11,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.taskkeeper.core.services.OrderService;
-import com.taskkeeper.events.orders.RequestOrderDetailsEvent;
-import com.taskkeeper.rest.controller.OrderQueriesController;
+import com.taskkeeper.core.services.WorkItemService;
+import com.taskkeeper.events.workitem.RequestWorkItemEvent;
+import com.taskkeeper.rest.controller.WorkItemQueriesController;
 
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
@@ -29,10 +29,10 @@ public class ViewOrderIntegrationTest {
 	MockMvc mockMvc;
 
 	@InjectMocks
-	OrderQueriesController controller;
+	WorkItemQueriesController controller;
 
 	@Mock
-	OrderService orderService;
+	WorkItemService orderService;
 
 	UUID key = UUID.fromString("9e67aa30-ba2f-11e3-a5e2-0800200c9a66");
 
@@ -47,7 +47,7 @@ public class ViewOrderIntegrationTest {
 	@Test
 	public void thatViewOrderUsesHttpNotFound() throws Exception {
 
-		when(orderService.requestOrderDetails(any(RequestOrderDetailsEvent.class)))
+		when(orderService.requestWorkItem(any(RequestWorkItemEvent.class)))
 		    .thenReturn(orderDetailsNotFound(key));
 
 		this.mockMvc
@@ -60,7 +60,7 @@ public class ViewOrderIntegrationTest {
 	@Test
 	public void thatViewOrderUsesHttpOK() throws Exception {
 
-		when(orderService.requestOrderDetails(any(RequestOrderDetailsEvent.class)))
+		when(orderService.requestWorkItem(any(RequestWorkItemEvent.class)))
 		    .thenReturn(orderDetailsEvent(key));
 
 		this.mockMvc.perform(
@@ -71,7 +71,7 @@ public class ViewOrderIntegrationTest {
 	@Test
 	public void thatViewOrderRendersCorrecty() throws Exception {
 
-		when(orderService.requestOrderDetails(any(RequestOrderDetailsEvent.class)))
+		when(orderService.requestWorkItem(any(RequestWorkItemEvent.class)))
 		    .thenReturn(orderDetailsEvent(key));
 
 		this.mockMvc

@@ -6,15 +6,15 @@ import com.taskkeeper.events.user.RequestUserByUsernameEvent;
 import com.taskkeeper.events.user.UserCreatedEvent;
 import com.taskkeeper.events.user.UserDetailsEvent;
 import com.taskkeeper.persistence.domain.User;
-import com.taskkeeper.persistence.repository.UsersRepository;
+import com.taskkeeper.persistence.repository.UserRepository;
 
 public class UserPersistenceEventHandler implements UserPersistenceService{
 	
-	private final UsersRepository usersRepository;
+	private final UserRepository usersRepository;
 
 	// private final OrderStatusRepository orderStatusRepository;
 
-	public UserPersistenceEventHandler(final UsersRepository usersRepository /*,
+	public UserPersistenceEventHandler(final UserRepository usersRepository /*,
 	    final OrderStatusRepository orderStatusRepository*/) {
 		
 		this.usersRepository = usersRepository;

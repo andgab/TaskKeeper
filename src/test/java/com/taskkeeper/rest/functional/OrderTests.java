@@ -1,7 +1,7 @@
 package com.taskkeeper.rest.functional;
 
 import com.taskkeeper.rest.controller.fixture.RestDataFixture;
-import com.taskkeeper.rest.domain.Order;
+import com.taskkeeper.rest.domain.WorkItem;
 
 import org.junit.Test;
 import org.springframework.http.*;
@@ -25,17 +25,17 @@ public class OrderTests {
     HttpEntity<String> requestEntity = new HttpEntity<String>(
         RestDataFixture.standardOrderJSON(),headers);
 
-    ResponseEntity<Order> entity = template.postForEntity(
+    ResponseEntity<WorkItem> entity = template.postForEntity(
         "http://localhost:8080/aggregators/orders",
-        requestEntity, Order.class);
+        requestEntity, WorkItem.class);
 
     String path = entity.getHeaders().getLocation().getPath();
 
     assertEquals(HttpStatus.CREATED, entity.getStatusCode());
     assertTrue(path.startsWith("/aggregators/orders/"));
-    Order order = entity.getBody();
+    WorkItem order = entity.getBody();
 
-    System.out.println ("The Order ID is " + order.getKey());
+    System.out.println ("The WorkItem ID is " + order.getKey());
     System.out.println ("The Location is " + entity.getHeaders().getLocation());
 
     assertEquals(2, order.getItems().size());

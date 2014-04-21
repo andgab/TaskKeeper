@@ -1,9 +1,9 @@
 package com.taskkeeper.rest.controller;
 
 
-import com.taskkeeper.core.services.OrderService;
-import com.taskkeeper.events.orders.RequestAllOrdersEvent;
-import com.taskkeeper.rest.controller.OrderQueriesController;
+import com.taskkeeper.core.services.WorkItemService;
+import com.taskkeeper.events.workitem.RequestAllWorkItemsEvent;
+import com.taskkeeper.rest.controller.WorkItemQueriesController;
 import com.taskkeeper.rest.controller.fixture.RestDataFixture;
 
 import org.junit.Before;
@@ -14,7 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.taskkeeper.rest.controller.fixture.RestDataFixture.allOrders;
+import static com.taskkeeper.rest.controller.fixture.RestDataFixture.allWorkItems;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -29,10 +29,10 @@ public class GetAllOrdersIntegrationTest {
   MockMvc mockMvc;
 
   @InjectMocks
-  OrderQueriesController controller;
+  WorkItemQueriesController controller;
 
   @Mock
-  OrderService orderService;
+  WorkItemService orderService;
   
   @Before
   public void setup() {
@@ -40,7 +40,7 @@ public class GetAllOrdersIntegrationTest {
 
     this.mockMvc = standaloneSetup(controller).build();
 
-    when(orderService.requestAllOrders(any(RequestAllOrdersEvent.class))).thenReturn(allOrders());
+    when(orderService.requestAllWorkItems(any(RequestAllWorkItemsEvent.class))).thenReturn(allWorkItems());
   } 
   
   

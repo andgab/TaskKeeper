@@ -1,8 +1,8 @@
 package com.taskkeeper.rest.controller;
 
-import com.taskkeeper.core.services.OrderService;
-import com.taskkeeper.events.orders.CreateOrderEvent;
-import com.taskkeeper.rest.controller.OrderCommandsController;
+import com.taskkeeper.core.services.WorkItemService;
+import com.taskkeeper.events.workitem.CreateWorkItemEvent;
+import com.taskkeeper.rest.controller.WorkItemCommandsController;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -28,10 +28,10 @@ public class CreateNewOrderIntegrationTest {
   MockMvc mockMvc;
 
   @InjectMocks
-  OrderCommandsController controller;
+  WorkItemCommandsController controller;
 
   @Mock
-  OrderService orderService;
+  WorkItemService orderService;
   
   @Before
   public void setup() {
@@ -40,7 +40,7 @@ public class CreateNewOrderIntegrationTest {
     this.mockMvc = standaloneSetup(controller)
             .setMessageConverters(new MappingJackson2HttpMessageConverter()).build();
 
-    when(orderService.createOrder(any(CreateOrderEvent.class))).thenReturn(
+    when(orderService.createWorkItem(any(CreateWorkItemEvent.class))).thenReturn(
             orderCreated(UUID.fromString("f3512d26-72f6-4290-9265-63ad69eccc13")));
   }
   
