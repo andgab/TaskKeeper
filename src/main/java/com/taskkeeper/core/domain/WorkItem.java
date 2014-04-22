@@ -2,9 +2,8 @@ package com.taskkeeper.core.domain;
 
 import java.util.Date;
 
-import org.springframework.beans.BeanUtils;
-
 import com.taskkeeper.events.workitem.WorkItemDetails;
+
 
 public class WorkItem {
 
@@ -82,17 +81,33 @@ public class WorkItem {
     this.lastUpdate = lastUpdate;
   }
 
+ 
   public WorkItemDetails toWorkItemDetails() {
     WorkItemDetails details = new WorkItemDetails();
-
-    BeanUtils.copyProperties(details, this);
+    
+    details.setId(this.id);
+    details.setTitle(this.title);
+    details.setDescription(this.description);
+    details.setStatus(this.status);
+    details.setDoDate(this.doDate);
+    details.setDoneDate(this.doneDate);
+    details.setCreateDate(this.createDate);
+    details.setLastUpdate(this.lastUpdate);
+    
     return details;
   }
 
   public static WorkItem fromWorkItemDetails(WorkItemDetails workItemDetails) {
-    WorkItem workItem = new WorkItem(workItemDetails.getCreateDate());
-
-    BeanUtils.copyProperties(workItemDetails, workItem);
+  	WorkItem workItem = new WorkItem(workItemDetails.getCreateDate());
+    
+    workItem.setId(workItemDetails.getId());
+    workItem.setTitle(workItemDetails.getTitle());
+    workItem.setDescription(workItemDetails.getDescription());
+    workItem.setStatus(workItemDetails.getStatus());
+    workItem.setDoDate(workItemDetails.getDoDate());
+    workItem.setDoneDate(workItemDetails.getDoneDate());
+    workItem.setLastUpdate(workItemDetails.getLastUpdate());
+    
     return workItem;
   }
 

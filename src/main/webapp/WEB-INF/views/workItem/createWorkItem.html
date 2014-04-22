@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:tiles="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,58 +15,60 @@
     <![endif]-->
 </head>
 <body>
-	<div th:include="layout :: head"></div>
+  <div th:include="layout :: head"></div>
 
-	<div class="container">
+  <div class="container">
 
 
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<b>Skapa ärende</b>
-			</div>
-			<div class="panel-body">
-				<form method="POST" th:object="${workItemInfo}">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <b>Skapa ärende</b>
+      </div>
+      <div class="panel-body">
+        <form method="POST" th:object="${workItemInfo}">
 
-					<div class="form-group">
-						<label for="title">Titel</label> 
-						  <input type="text" class="form-control" id="title" placeholder="Titel" th:field="*{title}" />
-					</div>
+          <div class="form-group">
+            <label for="title">Titel</label> 
+            <input type="text" class="form-control" placeholder="Titel" th:field="*{title}" />
+            <div th:if="${#fields.hasErrors('title')}"><p th:errors="*{title}">Incorrect Title</p></div>
+          </div>
 
-					<div class="form-group">
-						<label for="description">Beskrivningen</label>
-						<textarea class="form-control" id="description" rows="6" placeholder="Beskrivningen" th:field="*{description}"></textarea>
-					</div>
+          <div class="form-group">
+            <label for="description">Beskrivningen</label>
+            <textarea class="form-control" rows="6" placeholder="Beskrivningen" th:field="*{description}"></textarea>
+            <div th:if="${#fields.hasErrors('description')}"><p th:errors="*{description}">Incorrect description</p></div>
+          </div>
 
-					<div class="row">
-						<div class="form-group col-md-6">
-							<label for="exampleInputEmail1">Tilldelad</label> 
-							<select class="form-control">
-								<option>Erik Eriksson</option>
-								<option>Erik Eriksson</option>
-							</select>
-						</div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="exampleInputEmail1">Tilldelad</label> 
+              <select class="form-control">
+                <option>Erik Eriksson</option>
+                <option>Erik Eriksson</option>
+              </select>
+            </div>
 
-						<div class="form-group col-md-6">
-							<label for="doDate">Senast klar</label> 
-							 <input type="text" class="form-control" id="doDate" placeholder="2014-03-27" th:field="*{doDate}" />
-						</div>
-					</div>
+            <div class="form-group col-md-6">
+              <label for="doDate">Senast klar</label> 
+              <input type="text" class="form-control" placeholder="2014-03-27" th:field="*{doDate}"/>
+              <div th:if="${#fields.hasErrors('doDate')}"><p th:errors="*{doDate}">Incorrect doDate</p></div>
+            </div>
+          </div>
 
-					<p>
-						<button type="submit" class="btn btn-primary">Spara</button>
-					</p>
-				</form>
-			</div>
-		</div>
+          <p>
+            <button type="submit" class="btn btn-primary">Spara</button>
+          </p>
+        </form>
+      </div>
+    </div>
 
-		<div th:include="layout :: foot"></div>
+    <div th:include="layout :: foot"></div>
 
-	</div>
-	<!-- /container -->
+  </div>
+  <!-- /container -->
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script src="/resources/lib/bootstrap/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="/resources/lib/bootstrap/bootstrap.min.js"></script>
 </body>
 </html>
 

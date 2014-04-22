@@ -56,8 +56,8 @@
 						<tr th:each="item,status : ${workItems}">
 							<td><a href="#/viewWorkItem">2014-1</a></td>
 							<td th:text="${item.doDate}"></td>
-							<td><a href="#/viewWorkItem" a:text="${item.title}"></a></td>
-							<td th:text="${item.createDate}"></td>
+							<td><a href="#/viewWorkItem" th:text="${item.title}"></a></td>
+							<td th:text="${#dates.format(item.createDate, 'yyyy-mm-dd')}"></td>
 							<td>@mdo</td>
 							<td th:text="${item.status}">Pågående</td>
 						</tr>

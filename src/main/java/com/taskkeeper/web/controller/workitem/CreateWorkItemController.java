@@ -1,5 +1,7 @@
 package com.taskkeeper.web.controller.workitem;
 
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -37,17 +39,23 @@ public class CreateWorkItemController {
       BindingResult result, RedirectAttributes redirectAttrs) {
 
     if (result.hasErrors()) {
+    	LOG.debug("Error, when trying to create work item {}:", workItem.getTitle());
       // errors in the form
       // show the checkout form again
       return "/workItem/createWorkItem";
     }
 
     LOG.debug("No errors, continue with processing workItem {}:", workItem.getTitle());
+    
+    // Set crate date and last update to today
+    workItem.setCreateDate(new Date());
+    workItem.setLastUpdate(new Date());
+       
 
     WorkItemCreatedEvent workItemCreatedEvent = workItemService
         .createWorkItem(new CreateWorkItemEvent(workItem.toWorkItemDetails()));
 
-    LOG.debug("Cretaed new workItem id {}", workItemCreatedEvent.getNewId());
+    LOG.debug("Created new workItem id {}", workItemCreatedEvent.getNewId());
 
     return "redirect:/workItems";
   }

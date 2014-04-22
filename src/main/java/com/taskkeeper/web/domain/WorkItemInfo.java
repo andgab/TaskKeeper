@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.BeanUtils;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.taskkeeper.events.workitem.WorkItemDetails;
 
@@ -24,10 +25,16 @@ public class WorkItemInfo implements Serializable {
   private Integer status;
   
   @NotNull
-  @NotEmpty
+  @DateTimeFormat(pattern="yyyy-MM-dd")
   private Date doDate;
+  
+  @DateTimeFormat(pattern="yyyy-MM-dd")
   private Date doneDate;
+  
+  @DateTimeFormat(pattern="yyyy-MM-dd")
   private Date createDate;
+  
+  @DateTimeFormat(pattern="yyyy-MM-dd")
   private Date lastUpdate;
 
   public Long getId() {
@@ -96,15 +103,31 @@ public class WorkItemInfo implements Serializable {
 
   public WorkItemDetails toWorkItemDetails() {
     WorkItemDetails details = new WorkItemDetails();
-
-    BeanUtils.copyProperties(details, this);
+    
+    details.setId(this.id);
+    details.setTitle(this.title);
+    details.setDescription(this.description);
+    details.setStatus(this.status);
+    details.setDoDate(this.doDate);
+    details.setDoneDate(this.doneDate);
+    details.setCreateDate(this.createDate);
+    details.setLastUpdate(this.lastUpdate);
+    
     return details;
   }
 
   public static WorkItemInfo fromWorkItemDetails(WorkItemDetails workItemDetails) {
     WorkItemInfo workItem = new WorkItemInfo();
-
-    BeanUtils.copyProperties(workItemDetails, workItem);
+    
+    workItem.setId(workItemDetails.getId());
+    workItem.setTitle(workItemDetails.getTitle());
+    workItem.setDescription(workItemDetails.getDescription());
+    workItem.setStatus(workItemDetails.getStatus());
+    workItem.setDoDate(workItemDetails.getDoDate());
+    workItem.setDoneDate(workItemDetails.getDoneDate());
+    workItem.setCreateDate(workItemDetails.getCreateDate());
+    workItem.setLastUpdate(workItemDetails.getLastUpdate());
+    
     return workItem;
   }
 
