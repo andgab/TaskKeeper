@@ -28,21 +28,21 @@
 
         <form method="POST" th:object="${workItemInfo}">
 
-          <fieldset disabled>
-
-            <div class="form-group col-md-6">
-              <label for="title">Titel</label> <input type="text" class="form-control"
-                placeholder="Titel" th:field="*{title}" />
-              <div th:if="${#fields.hasErrors('title')}">
-                <p th:errors="*{title}">Incorrect Title</p>
+          <fieldset>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="title">Titel</label> <input type="text" class="form-control"
+                  placeholder="Titel" th:field="*{title}" />
+                <div th:if="${#fields.hasErrors('title')}">
+                  <p th:errors="*{title}">Incorrect Title</p>
+                </div>
+              </div>
+  
+              <div class="form-group col-md-6">
+                <label for="status">Ärendestatus:</label> 
+                <input type="text" class="form-control" id="status" placeholder="Titel"/>
               </div>
             </div>
-
-            <div class="form-group col-md-6">
-              <label for="status">Ärendestatus:</label> <input type="text" class="form-control"
-                id="status" placeholder="Titel">
-            </div>
-
 
             <div class="form-group">
               <label for="description">Beskrivningen</label>
