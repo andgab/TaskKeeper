@@ -1,5 +1,7 @@
 package com.taskkeeper.core.services;
 
+import java.util.Date;
+
 import com.taskkeeper.core.domain.WorkItem;
 import com.taskkeeper.events.workitem.*;
 import com.taskkeeper.persistence.services.WorkItemPersistenceService;
@@ -34,6 +36,29 @@ public class WorkItemEventHandler implements WorkItemService {
     return workItemPersistenceService.requestWorkItemDetails(requestWorkItemEvent);
   }
   
+  @Override
+  public WorkItemUpdatedEvent updateWorkItem(UpdateWorkItemEvent updateWorkItemEvent) {
+    
+    WorkItemEvent workItemEvent = workItemPersistenceService.requestWorkItemDetails(new RequestWorkItemEvent(updateWorkItemEvent.getId()));
+
+    if (!workItemEvent.isEntityFound()) {
+      return WorkItemUpdatedEvent.notFound(updateWorkItemEvent.getId());
+    }
+    
+    WorkItem oldWorkItem = WorkItem.fromWorkItemDetails(workItemEvent.getWorkItemDetails());
+    
+    WorkItem updatedWorkItem = WorkItem.fromWorkItemDetails(updateWorkItemEvent.getWorkItemDetails());
+    
+    oldWorkItem.setTitle(updatedWorkItem.getTitle());
+    oldWorkItem.setDescription(updatedWorkItem.getDescription());
+    oldWorkItem.setAssignedToUser(updatedWorkItem.getAssignedToUser());
+    oldWorkItem.setDoDate(updatedWorkItem.getDoDate());
+    oldWorkItem.setStatus(updatedWorkItem.getStatus());
+    
+    oldWorkItem.setLastUpdate(new Date());    
+    
+    return workItemPersistenceService.updateWorkItem(new UpdateWorkItemEvent(oldWorkItem.getId(), oldWorkItem.toWorkItemDetails()));
+  }
 
   @Override
   public WorkItemDeletedEvent deleteWorkItem(DeleteWorkItemEvent deleteWorkItemEvent) {

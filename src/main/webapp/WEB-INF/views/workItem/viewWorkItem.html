@@ -26,7 +26,10 @@
       </div>
       <div class="panel-body">
 
-        <form method="POST" th:object="${workItemInfo}">
+        <form method="POST" action="/viewWorkItem" th:object="${workItemInfo}">
+        
+        <input type="hidden" id="id" th:field="*{id}" />
+        
 
           <fieldset>
             <div class="row">
@@ -40,14 +43,17 @@
   
               <div class="form-group col-md-6">
                 <label for="status">Ärendestatus:</label> 
-                <input type="text" class="form-control" id="status" placeholder="Titel"/>
+                <select class="form-control" id="status" th:field="*{status}">
+                  <option th:value="${T(com.taskkeeper.core.domain.WorkItemStatus).CLOSED}">Avslutad</option>
+                  <option th:value="${T(com.taskkeeper.core.domain.WorkItemStatus).OPEND}">Pågående</option>
+                  <option th:value="${T(com.taskkeeper.core.domain.WorkItemStatus).DONE}">Utförd</option>
+                </select>
               </div>
             </div>
 
             <div class="form-group">
               <label for="description">Beskrivningen</label>
-              <textarea class="form-control" rows="6" placeholder="Beskrivningen"
-                th:field="*{description}"></textarea>
+              <textarea class="form-control" rows="6" placeholder="Beskrivningen" th:field="*{description}"></textarea>
               <div th:if="${#fields.hasErrors('description')}">
                 <p th:errors="*{description}">Incorrect description</p>
               </div>
@@ -55,8 +61,8 @@
 
             <div class="row">
               <div class="form-group col-md-6">
-                <label for="assignedToUserId">Tilldelad</label> <select class="form-control"
-                  id="assignedToUserId" th:field="*{assignedToUserId}">
+                <label for="assignedToUserId">Tilldelad</label> 
+                <select class="form-control" id="assignedToUserId" th:field="*{assignedToUserId}">
                   <option th:each="user : ${allUsers}" th:value="${user.id}"
                     th:text="${user.firstname + ' ' + user.lastname}">Erik Eriksson</option>
                 </select>

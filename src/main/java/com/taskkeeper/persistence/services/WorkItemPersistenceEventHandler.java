@@ -58,18 +58,18 @@ public class WorkItemPersistenceEventHandler implements WorkItemPersistenceServi
     
     return new WorkItemDeletedEvent(deleteWorkItemEvent.getId(), workItem.toWorkItemDetails());
   }
-/*
-  @Override
-  public OrderUpdatedEvent setOrderPayment(SetOrderPaymentEvent setOrderPaymentEvent) {
-    WorkItemInfo order = workItemRepository.findOne(setOrderPaymentEvent.getKey().toString());
 
-    if (order == null) {
-      return OrderUpdatedEvent.notFound(setOrderPaymentEvent.getKey());
+  @Override
+  public WorkItemUpdatedEvent updateWorkItem(UpdateWorkItemEvent updateWorkItemEvent) {
+    WorkItem workItem = workItemRepository.findOne(updateWorkItemEvent.getId());
+
+    if (workItem == null) {
+      return WorkItemUpdatedEvent.notFound(updateWorkItemEvent.getId());
     }
 
-    // TODO, handling payment details...
-
-    return new OrderUpdatedEvent(UUID.fromString(order.getId()), order.toOrderDetails());
+    workItem = workItemRepository.save(WorkItem.fromWorkItemDetails(updateWorkItemEvent.getWorkItemDetails()));
+    
+    return new WorkItemUpdatedEvent(workItem.getId(), workItem.toWorkItemDetails());
   }
-*/
+  
 }

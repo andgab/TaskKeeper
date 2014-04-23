@@ -12,5 +12,5 @@ public interface WorkItemPersistenceService {
 
   public WorkItemDeletedEvent deleteWorkItem(DeleteWorkItemEvent deleteWorkItemsEvent);
   
-  //public OrderUpdatedEvent setOrderPayment(SetOrderPaymentEvent setOrderPaymentEvent);
+  public WorkItemUpdatedEvent updateWorkItem(UpdateWorkItemEvent updateWorkItemEvent);
 }

@@ -13,5 +13,7 @@ public interface WorkItemService {
 
   public WorkItemEvent requestWorkItem(RequestWorkItemEvent event);
   
+  public WorkItemUpdatedEvent updateWorkItem(UpdateWorkItemEvent event);
+  
   public WorkItemDeletedEvent deleteWorkItem(DeleteWorkItemEvent event);
 }

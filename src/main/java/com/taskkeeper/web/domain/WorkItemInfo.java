@@ -26,7 +26,6 @@ public class WorkItemInfo implements Serializable {
 	private String description;
 
 	@NotNull
-	@NotEmpty
 	private Long assignedToUserId;
 	private String assignedToUserName;
 
