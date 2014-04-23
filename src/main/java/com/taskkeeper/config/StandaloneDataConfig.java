@@ -18,7 +18,11 @@ public class StandaloneDataConfig implements DataConfig {
 	@Bean
 	public DataSource dataSource() throws SQLException {
     EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-    return builder.setType(EmbeddedDatabaseType.H2).build();
+    
+    return builder.setType(EmbeddedDatabaseType.H2)
+	    .addScript("classpath:/schema/schema.sql")
+	    .addScript("classpath:/schema/init.sql")
+	    .build();
 	}
 	
 	@Bean

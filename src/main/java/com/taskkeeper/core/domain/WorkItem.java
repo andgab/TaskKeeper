@@ -5,12 +5,14 @@ import java.util.Date;
 import com.taskkeeper.events.workitem.WorkItemDetails;
 
 
+
 public class WorkItem {
 
   private Long id;
   private String title;
   private String description;
-  private Integer status;
+  private User assignedToUser;
+  private WorkItemStatus status;
   private Date doDate;
   private Date doneDate;
   private Date createDate;
@@ -45,11 +47,19 @@ public class WorkItem {
     this.description = description;
   }
 
-  public Integer getStatus() {
+  public User getAssignedToUser() {
+		return assignedToUser;
+	}
+
+	public void setAssignedToUser(User assignedToUser) {
+		this.assignedToUser = assignedToUser;
+	}
+
+	public WorkItemStatus getStatus() {
     return status;
   }
 
-  public void setStatus(Integer status) {
+  public void setStatus(WorkItemStatus status) {
     this.status = status;
   }
 
@@ -88,6 +98,7 @@ public class WorkItem {
     details.setId(this.id);
     details.setTitle(this.title);
     details.setDescription(this.description);
+    details.setAssignedToUser(this.assignedToUser.toUserDetails());
     details.setStatus(this.status);
     details.setDoDate(this.doDate);
     details.setDoneDate(this.doneDate);
@@ -103,6 +114,7 @@ public class WorkItem {
     workItem.setId(workItemDetails.getId());
     workItem.setTitle(workItemDetails.getTitle());
     workItem.setDescription(workItemDetails.getDescription());
+    workItem.setAssignedToUser(User.fromUserDetails(workItemDetails.getAssignedToUser()));
     workItem.setStatus(workItemDetails.getStatus());
     workItem.setDoDate(workItemDetails.getDoDate());
     workItem.setDoneDate(workItemDetails.getDoneDate());

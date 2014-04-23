@@ -5,42 +5,56 @@ import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.BeanUtils;
 
 import com.taskkeeper.events.user.UserDetails;
 
-
 public class UserInfo implements Serializable {
 
-  @NotNull
-  @NotEmpty
-	private String firstName;
+	private Long id;
 
-  @NotNull
-  @NotEmpty
-	private String lastName;
+	@NotNull
+	@NotEmpty
+	private String firstname;
 
-  @NotNull
-  @NotEmpty
+	@NotNull
+	@NotEmpty
+	private String lastname;
+
+	@NotNull
+	@NotEmpty
 	private String username;
 
-  @NotNull
-  @NotEmpty
+	@NotNull
+	@NotEmpty
 	private String password;
 
-	public String getFirstName() {
-		return firstName;
+	public UserInfo() {
+		id = null;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public Long getId() {
+		return id;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstName) {
+		this.firstname = firstName;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastName) {
+		this.lastname = lastName;
 	}
 
 	public String getUsername() {
@@ -58,18 +72,24 @@ public class UserInfo implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
+
 	public UserDetails toUserDetails() {
 		UserDetails details = new UserDetails();
 
-    details.setId(0);
-    details.setFirstName(this.firstName);
-    details.setLastName(this.lastName);
-    details.setUsername(this.username);
-    details.setPassword(this.password);
-    
-	  return details;
-  }
+		details.setId(id);
+		details.setFirstname(this.firstname);
+		details.setLastname(this.lastname);
+		details.setUsername(this.username);
+		details.setPassword(this.password);
+
+		return details;
+	}
+
+	public static UserInfo fromUserDetails(UserDetails details) {
+		UserInfo userInfo = new UserInfo();
+		BeanUtils.copyProperties(details, userInfo);
+
+		return userInfo;
+	}
 
 }

@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.taskkeeper.events.user.RequestUserByUsernameEvent;
-import com.taskkeeper.events.user.UserDetailsEvent;
+import com.taskkeeper.events.user.UserEvent;
 import com.taskkeeper.persistence.services.UserPersistenceService;
 
 public class UserSecurityService implements UserDetailsService {
@@ -24,7 +24,7 @@ public class UserSecurityService implements UserDetailsService {
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException 
 	{
-		UserDetailsEvent userDetailsEvent = userPersistenceService.requestUserByUsername(new RequestUserByUsernameEvent(username));
+		UserEvent userDetailsEvent = userPersistenceService.requestUserByUsername(new RequestUserByUsernameEvent(username));
 		
 		if(!userDetailsEvent.isEntityFound()) {
 			throw new UsernameNotFoundException("No user found with username: " + username);

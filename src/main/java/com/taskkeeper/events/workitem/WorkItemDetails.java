@@ -2,12 +2,16 @@ package com.taskkeeper.events.workitem;
 
 import java.util.Date;
 
+import com.taskkeeper.core.domain.WorkItemStatus;
+import com.taskkeeper.events.user.UserDetails;
+
 public class WorkItemDetails {
 
   private Long id;
   private String title;
   private String description;
-  private Integer status;
+  private UserDetails assignedToUser;
+  private WorkItemStatus status;
   private Date doDate;
   private Date doneDate;
   private Date createDate;
@@ -44,12 +48,20 @@ public class WorkItemDetails {
   public void setDescription(String description) {
     this.description = description;
   }
+  
+	public void setAssignedToUser(UserDetails assignedToUser) {
+	  this.assignedToUser = assignedToUser;	  
+  }
+	
+	public UserDetails getAssignedToUser() {
+		return assignedToUser;
+	}
 
-  public Integer getStatus() {
+  public WorkItemStatus getStatus() {
     return status;
   }
 
-  public void setStatus(Integer status) {
+  public void setStatus(WorkItemStatus status) {
     this.status = status;
   }
 
@@ -84,4 +96,6 @@ public class WorkItemDetails {
   public void setLastUpdate(Date lastUpdate) {
     this.lastUpdate = lastUpdate;
   }
+
+
 }

@@ -35,9 +35,9 @@
 				<table class="table">
 					<colgroup>
 						<col style="width: 100px;" />
-						<col style="width: 100px;" />
+						<col style="width: 120px;" />
 						<col />
-						<col style="width: 100px;" />
+						<col style="width: 120px;" />
 						<col style="width: 150px;" />
 						<col style="width: 50px;" />
 					</colgroup>
@@ -54,12 +54,16 @@
 					</thead>
 					<tbody>
 						<tr th:each="item,status : ${workItems}">
-							<td><a href="#/viewWorkItem">2014-1</a></td>
+							<td><a href="/viewWorkItem"   th:href="@{'/viewWorkItem/' + ${item.id}}" >2014-1</a></td>
 							<td th:text="${item.doDate}"></td>
-							<td><a href="#/viewWorkItem" th:text="${item.title}"></a></td>
-							<td th:text="${#dates.format(item.createDate, 'yyyy-mm-dd')}"></td>
-							<td>@mdo</td>
-							<td th:text="${item.status}">Pågående</td>
+							<td><a href="/viewWorkItem" th:href="@{'/viewWorkItem/' + ${item.id}}" th:text="${item.title}"></a></td>
+							<td th:text="${#dates.format(item.createDate, 'yyyy-MM-dd')}"></td>
+							<td th:text="${item.assignedToUserName}"></td>
+							<td th:switch="${item.status}">
+                <span th:case="${T(com.taskkeeper.core.domain.WorkItemStatus).CLOSED}">Avslutad</span>
+                <span th:case="${T(com.taskkeeper.core.domain.WorkItemStatus).OPEND}">Pågående</span>
+                <span th:case="${T(com.taskkeeper.core.domain.WorkItemStatus).DONE}">Utförd</span>
+              </td>
 						</tr>
 						<tr th:remove="all">
 							<td><a href="#/viewWorkItem">2014-0002</a></td>

@@ -2,7 +2,7 @@ package com.taskkeeper.persistence.domain;
 
 import javax.persistence.*;
 
-@Entity(name = "userRole")
+@Entity(name = "user_role")
 public class UserRole {
 	
 	@Id

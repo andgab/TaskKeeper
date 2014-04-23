@@ -1,5 +1,6 @@
 package com.taskkeeper.persistence.domain;
 
+import com.taskkeeper.core.domain.WorkItemStatus;
 import com.taskkeeper.events.workitem.WorkItemDetails;
 
 import javax.persistence.*;
@@ -19,7 +20,13 @@ public class WorkItem {
 
   @Size(max = 45)
   private String description;
-  private Integer status;
+  
+  @OneToOne(fetch=FetchType.EAGER)
+  @JoinColumn(name="assigned_to_user_id")
+  private User assignedToUser;
+  
+  @Enumerated(EnumType.ORDINAL)
+  private WorkItemStatus status;
 
   @Column(name = "do_date")
   @Temporal(TemporalType.DATE)
@@ -61,11 +68,19 @@ public class WorkItem {
     this.description = description;
   }
 
-  public Integer getStatus() {
+  public User getAssignedToUser() {
+		return assignedToUser;
+	}
+
+	public void setAssignedToUser(User assignedToUser) {
+		this.assignedToUser = assignedToUser;
+	}
+
+	public WorkItemStatus getStatus() {
     return status;
   }
 
-  public void setStatus(Integer status) {
+  public void setStatus(WorkItemStatus status) {
     this.status = status;
   }
 
@@ -108,6 +123,7 @@ public class WorkItem {
     details.setId(this.id);
     details.setTitle(this.title);
     details.setDescription(this.description);
+    details.setAssignedToUser(this.assignedToUser.toUserDetails());
     details.setStatus(this.status);
     details.setDoDate(this.doDate);
     details.setDoneDate(this.doneDate);
@@ -123,6 +139,7 @@ public class WorkItem {
     workItem.setId(workItemDetails.getId());
     workItem.setTitle(workItemDetails.getTitle());
     workItem.setDescription(workItemDetails.getDescription());
+    workItem.setAssignedToUser(User.fromUserDetails(workItemDetails.getAssignedToUser()));
     workItem.setStatus(workItemDetails.getStatus());
     workItem.setDoDate(workItemDetails.getDoDate());
     workItem.setDoneDate(workItemDetails.getDoneDate());

@@ -4,7 +4,9 @@ package com.taskkeeper.core.services;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.taskkeeper.core.domain.User;
+import com.taskkeeper.events.user.AllUsersEvent;
 import com.taskkeeper.events.user.CreateUserEvent;
+import com.taskkeeper.events.user.RequestAllUsersEvent;
 import com.taskkeeper.events.user.UserCreatedEvent;
 import com.taskkeeper.persistence.services.UserPersistenceService;
 
@@ -32,6 +34,11 @@ public class UserEventHandler implements UserService {
 		UserCreatedEvent event = userPersistenceService.createUser(createUserEvent);
 		
 		return event;
+	}
+	
+	
+	public AllUsersEvent requestAllUsersSortedByFirstname(RequestAllUsersEvent requestAllUsersEvent) {	
+		return userPersistenceService.requestAllUserSortedByFirstName(requestAllUsersEvent);
 	}
 	
 

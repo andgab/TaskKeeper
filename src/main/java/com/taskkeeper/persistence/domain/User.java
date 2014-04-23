@@ -12,8 +12,8 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String firstName;
-	private String lastName;
+	private String firstname;
+	private String lastname;
 	@Column(unique = true)
 	private String username;
 	private String password;
@@ -28,20 +28,20 @@ public class User {
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public String getUsername() {
@@ -72,8 +72,8 @@ public class User {
 		UserDetails details = new UserDetails();
 
 		details.setId(this.id);
-		details.setFirstName(this.firstName);
-		details.setLastName(lastName);
+		details.setFirstname(this.firstname);
+		details.setLastname(lastname);
 		details.setUsername(username);
 		details.setPassword(password);
 
