@@ -13,4 +13,6 @@ public interface WorkItemPersistenceService {
   public WorkItemDeletedEvent deleteWorkItem(DeleteWorkItemEvent deleteWorkItemsEvent);
   
   public WorkItemUpdatedEvent updateWorkItem(UpdateWorkItemEvent updateWorkItemEvent);
+  
+  public WorkItemUpdatedEvent addCommentToWorkItem(AddCommentToWorkItemEvent event);
 }

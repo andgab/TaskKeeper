@@ -43,9 +43,6 @@ public class CreateWorkItemController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String workItem(Model model) {
 
-		model.addAttribute("allUsers",
-		    getUsers(userService.requestAllUsersSortedByFirstname(new RequestAllUsersEvent())));
-
 		return "/workItem/createWorkItem";
 	}
 
@@ -78,6 +75,11 @@ public class CreateWorkItemController {
 	@ModelAttribute("workItemInfo")
 	private WorkItemInfo getWorkItemInfo() {
 		return new WorkItemInfo();
+	}
+
+	@ModelAttribute("allUsers")
+	private List<UserInfo> getAllUsers() {
+		return getUsers(userService.requestAllUsersSortedByFirstname(new RequestAllUsersEvent()));
 	}
 
 	private List<UserInfo> getUsers(AllUsersEvent alluserEvent) {

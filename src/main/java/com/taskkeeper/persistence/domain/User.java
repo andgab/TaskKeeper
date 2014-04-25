@@ -81,9 +81,12 @@ public class User {
 	}
 
 	public static User fromUserDetails(UserDetails details) {
-		User user = new User();
-		BeanUtils.copyProperties(details, user);
-
+		User user = null;
+		
+		if (details != null) {
+			user = new User();
+			BeanUtils.copyProperties(details, user);
+		}
 		return user;
 	}
 

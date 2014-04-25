@@ -1,6 +1,7 @@
 package com.taskkeeper.events.workitem;
 
 import java.util.Date;
+import java.util.List;
 
 import com.taskkeeper.core.domain.WorkItemStatus;
 import com.taskkeeper.events.user.UserDetails;
@@ -16,6 +17,7 @@ public class WorkItemDetails {
   private Date doneDate;
   private Date createDate;
   private Date lastUpdate;
+  private List<WorkItemCommentDetails> coments = null;
 
 	public WorkItemDetails() {
 	  this.id = null;
@@ -96,6 +98,14 @@ public class WorkItemDetails {
   public void setLastUpdate(Date lastUpdate) {
     this.lastUpdate = lastUpdate;
   }
+  
+  public List<WorkItemCommentDetails> getCommentDetails() {
+		return coments;
+	}
+
+	public void setCommentDetails(List<WorkItemCommentDetails> workItemComments) {
+      this.coments = workItemComments;
+	}
 
 
 }

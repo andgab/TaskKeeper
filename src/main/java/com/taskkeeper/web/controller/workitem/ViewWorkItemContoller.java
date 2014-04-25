@@ -23,74 +23,95 @@ import com.taskkeeper.core.services.WorkItemService;
 import com.taskkeeper.events.user.AllUsersEvent;
 import com.taskkeeper.events.user.RequestAllUsersEvent;
 import com.taskkeeper.events.user.UserDetails;
-
 import com.taskkeeper.events.workitem.RequestWorkItemEvent;
 import com.taskkeeper.events.workitem.UpdateWorkItemEvent;
 import com.taskkeeper.events.workitem.WorkItemEvent;
 import com.taskkeeper.events.workitem.WorkItemUpdatedEvent;
 import com.taskkeeper.web.domain.UserInfo;
+import com.taskkeeper.web.domain.WorkItemCommentInfo;
 import com.taskkeeper.web.domain.WorkItemInfo;
 
 @Controller
 @RequestMapping("/viewWorkItem")
 public class ViewWorkItemContoller {
 
-  private static final Logger LOG = LoggerFactory.getLogger(WorkItemsController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(WorkItemsController.class);
 
-  @Autowired
-  private WorkItemService workItemService;
+	@Autowired
+	private WorkItemService workItemService;
 
-  @Autowired
-  private UserService userService;
+	@Autowired
+	private UserService userService;
 
-  @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-  public String workItems(@PathVariable Long id, Model model) {
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}/view")
+	public String viewWorkItems(@PathVariable Long id, Model model) {
 
-    WorkItemEvent wokItemEvent = workItemService.requestWorkItem(new RequestWorkItemEvent(id));
+		WorkItemEvent wokItemEvent = workItemService.requestWorkItem(new RequestWorkItemEvent(id));
 
-    model.addAttribute("workItemInfo",
-        WorkItemInfo.fromWorkItemDetails(wokItemEvent.getWorkItemDetails()));
+		model.addAttribute("workItemInfo",
+		    WorkItemInfo.fromWorkItemDetails(wokItemEvent.getWorkItemDetails()));
 
-    model.addAttribute("allUsers",
-        getUsers(userService.requestAllUsersSortedByFirstname(new RequestAllUsersEvent())));
+		model.addAttribute("view", true);
 
-    return "/workItem/viewWorkItem";
-  }
+		return "/workItem/viewWorkItem";
+	}
 
-  @RequestMapping(method = RequestMethod.POST)
-  public String updateWorkItem(@Valid @ModelAttribute("workItemInfo") WorkItemInfo workItem,
-      BindingResult result, RedirectAttributes redirectAttrs) {
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}/edit")
+	public String editWorkItems(@PathVariable Long id, Model model) {
 
-    if (result.hasErrors()) {
-      LOG.debug("Error, when trying to create work item {}:", workItem.getTitle());
-      // errors in the form
-      // show the checkout form again
-      return "/workItem/viewWorkItem";
-    }
+		WorkItemEvent wokItemEvent = workItemService.requestWorkItem(new RequestWorkItemEvent(id));
 
-    LOG.debug("No errors, continue with processing workItem {}:", workItem.getTitle());
+		model.addAttribute("workItemInfo",
+		    WorkItemInfo.fromWorkItemDetails(wokItemEvent.getWorkItemDetails()));
 
-    WorkItemUpdatedEvent workItemUpdatedEvent = workItemService
-        .updateWorkItem(new UpdateWorkItemEvent(workItem.getId(), workItem.toWorkItemDetails()));
-    
-    
-    if(!workItemUpdatedEvent.isEntityFound()) {
-      return "redirect:/workItems";
-    }
-      
+		model.addAttribute("view", false);
 
-    LOG.debug("Created new workItem id {}", workItemUpdatedEvent.getId());
+		return "/workItem/viewWorkItem";
+	}
 
-    return "redirect:/viewWorkItem/" + workItem.getId().toString();
-  }
+	@RequestMapping(method = RequestMethod.POST)
+	public String updateWorkItem(@Valid @ModelAttribute("workItemInfo") WorkItemInfo workItem,
+	    BindingResult result, RedirectAttributes redirectAttrs) {
 
-  private List<UserInfo> getUsers(AllUsersEvent alluserEvent) {
-    List<UserInfo> userInfos = new ArrayList<UserInfo>();
+		if (result.hasErrors()) {
+			LOG.debug("Error, when trying to create work item {}:", workItem.getTitle());
+			// errors in the form
+			// show the checkout form again
+			return "/workItem/viewWorkItem";
+		}
 
-    for (UserDetails ueserDetails : alluserEvent.getUserDetails()) {
-      userInfos.add(UserInfo.fromUserDetails(ueserDetails));
-    }
-    return userInfos;
-  }
+		LOG.debug("No errors, continue with processing workItem {}:", workItem.getTitle());
+
+		WorkItemUpdatedEvent workItemUpdatedEvent = workItemService
+		    .updateWorkItem(new UpdateWorkItemEvent(workItem.getId(), workItem.toWorkItemDetails()));
+
+		if (!workItemUpdatedEvent.isEntityFound()) {
+			return "redirect:/workItems";
+		}
+
+		LOG.debug("Created new workItem id {}", workItemUpdatedEvent.getId());
+
+		return "redirect:/viewWorkItem/" + workItem.getId().toString() + "/view";
+	}
+
+	@ModelAttribute("allUsers")
+	private List<UserInfo> getAllUsers() {
+		return getUsers(userService.requestAllUsersSortedByFirstname(new RequestAllUsersEvent()));
+	}
+	
+	@ModelAttribute("workItemComment")
+	private WorkItemCommentInfo getWorkItemCommentInfo() {
+		return new WorkItemCommentInfo();
+	}
+	
+
+	private List<UserInfo> getUsers(AllUsersEvent alluserEvent) {
+		List<UserInfo> userInfos = new ArrayList<UserInfo>();
+
+		for (UserDetails ueserDetails : alluserEvent.getUserDetails()) {
+			userInfos.add(UserInfo.fromUserDetails(ueserDetails));
+		}
+		return userInfos;
+	}
 
 }

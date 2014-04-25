@@ -1,7 +1,9 @@
 package com.taskkeeper.web.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -11,7 +13,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.taskkeeper.core.domain.WorkItemStatus;
 import com.taskkeeper.events.user.UserDetails;
+import com.taskkeeper.events.workitem.WorkItemCommentDetails;
 import com.taskkeeper.events.workitem.WorkItemDetails;
+import com.taskkeeper.persistence.domain.WorkItemComment;
 
 public class WorkItemInfo implements Serializable {
 
@@ -43,6 +47,8 @@ public class WorkItemInfo implements Serializable {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date lastUpdate;
+
+	private List<WorkItemCommentInfo> comments = null;
 
 	public Long getId() {
 		return id;
@@ -124,22 +130,32 @@ public class WorkItemInfo implements Serializable {
 		this.lastUpdate = lastUpdate;
 	}
 
+	public List<WorkItemCommentInfo> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<WorkItemCommentInfo> comments) {
+		this.comments = comments;
+	}
+
 	public WorkItemDetails toWorkItemDetails() {
 		WorkItemDetails details = new WorkItemDetails();
 
 		details.setId(this.id);
 		details.setTitle(this.title);
 		details.setDescription(this.description);
-		
+
 		UserDetails userDetails = new UserDetails();
 		userDetails.setId(this.assignedToUserId);
 		details.setAssignedToUser(userDetails);
-		
+
 		details.setStatus(this.status);
 		details.setDoDate(this.doDate);
 		details.setDoneDate(this.doneDate);
 		details.setCreateDate(this.createDate);
 		details.setLastUpdate(this.lastUpdate);
+		
+		details.setCommentDetails(null);
 
 		return details;
 	}
@@ -158,6 +174,12 @@ public class WorkItemInfo implements Serializable {
 		workItem.setDoneDate(workItemDetails.getDoneDate());
 		workItem.setCreateDate(workItemDetails.getCreateDate());
 		workItem.setLastUpdate(workItemDetails.getLastUpdate());
+
+		List<WorkItemCommentInfo> workItemCommentInfo = new ArrayList<WorkItemCommentInfo>();
+		for (WorkItemCommentDetails workItemCommentDetails : workItemDetails.getCommentDetails()) {
+			workItemCommentInfo.add(WorkItemCommentInfo.fromWorkItemCommentDetails(workItemCommentDetails));
+		}
+		workItem.setComments(workItemCommentInfo);
 
 		return workItem;
 	}

@@ -16,4 +16,6 @@ public interface WorkItemService {
   public WorkItemUpdatedEvent updateWorkItem(UpdateWorkItemEvent event);
   
   public WorkItemDeletedEvent deleteWorkItem(DeleteWorkItemEvent event);
+  
+  public WorkItemUpdatedEvent addCommentToWorkItem(AddCommentToWorkItemEvent event);
 }

@@ -53,10 +53,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="item,status : ${workItems}">
-							<td><a href="/viewWorkItem"   th:href="@{'/viewWorkItem/' + ${item.id}}" >2014-1</a></td>
+						<tr th:each="item : ${workItems}">
+							<td><a href="/viewWorkItem"   th:href="@{'/viewWorkItem/' + ${item.id} + '/view'}" >2014-1</a></td>
 							<td th:text="${item.doDate}"></td>
-							<td><a href="/viewWorkItem" th:href="@{'/viewWorkItem/' + ${item.id}}" th:text="${item.title}"></a></td>
+							<td><a href="/viewWorkItem" th:href="@{'/viewWorkItem/' + ${item.id} + '/view'}" th:text="${item.title}"></a></td>
 							<td th:text="${#dates.format(item.createDate, 'yyyy-MM-dd')}"></td>
 							<td th:text="${item.assignedToUserName}"></td>
 							<td th:switch="${item.status}">

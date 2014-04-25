@@ -1,12 +1,16 @@
 package com.taskkeeper.persistence.domain;
 
 import com.taskkeeper.core.domain.WorkItemStatus;
+import com.taskkeeper.events.workitem.WorkItemCommentDetails;
 import com.taskkeeper.events.workitem.WorkItemDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "work_items")
 public class WorkItem {
@@ -18,7 +22,7 @@ public class WorkItem {
   @Size(max = 45)
   private String title;
 
-  @Size(max = 45)
+  @Size(max = 100)
   private String description;
   
   @OneToOne(fetch=FetchType.EAGER)
@@ -43,6 +47,10 @@ public class WorkItem {
   @Column(name = "last_update")
   @Temporal(TemporalType.TIMESTAMP)
   private Date lastUpdate;
+  
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "workItem", fetch=FetchType.EAGER)
+  private List<WorkItemComment> workItemComments;
+  
 
   public Long getId() {
     return id;
@@ -116,8 +124,15 @@ public class WorkItem {
     this.lastUpdate = lastUpdate;
   }
 
-  
-  public WorkItemDetails toWorkItemDetails() {
+  public List<WorkItemComment> getComments() {
+		return workItemComments;
+	}
+
+	public void setComments(List<WorkItemComment> workItemComments) {
+    this.workItemComments = workItemComments;
+	}
+	
+	public WorkItemDetails toWorkItemDetails() {
     WorkItemDetails details = new WorkItemDetails();
     
     details.setId(this.id);
@@ -129,6 +144,13 @@ public class WorkItem {
     details.setDoneDate(this.doneDate);
     details.setCreateDate(this.createDate);
     details.setLastUpdate(this.lastUpdate);
+
+    List<WorkItemCommentDetails> workItemCommentDetails = new ArrayList<WorkItemCommentDetails>();
+    for(WorkItemComment workItemComment : this.getComments())
+    {
+    	workItemCommentDetails.add(workItemComment.toWorkItemCommentDetails());
+    }
+    details.setCommentDetails(workItemCommentDetails);
     
     return details;
   }
@@ -145,6 +167,13 @@ public class WorkItem {
     workItem.setDoneDate(workItemDetails.getDoneDate());
     workItem.setCreateDate(workItemDetails.getCreateDate());
     workItem.setLastUpdate(workItemDetails.getLastUpdate());
+    
+    List<WorkItemComment> workItemComments = new ArrayList<WorkItemComment>();
+    for(WorkItemCommentDetails workItemCommentDetails : workItemDetails.getCommentDetails())
+    {
+    	workItemComments.add(WorkItemComment.fromWorkItemDetails(workItemCommentDetails));
+    }
+    workItem.setComments(workItemComments);
     
     return workItem;
   }

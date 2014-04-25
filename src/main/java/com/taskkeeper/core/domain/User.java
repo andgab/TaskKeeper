@@ -4,7 +4,6 @@ import org.springframework.beans.BeanUtils;
 
 import com.taskkeeper.events.user.UserDetails;
 
-
 public class User {
 
 	private Long id;
@@ -65,20 +64,23 @@ public class User {
 	public UserDetails toUserDetails() {
 		UserDetails details = new UserDetails();
 
-    details.setId(this.id);
-    details.setFirstname(this.firstname);
-    details.setLastname(lastname);
-    details.setUsername(username);
-    details.setPassword(password);
-    
-	  return details;
-  }
+		details.setId(this.id);
+		details.setFirstname(this.firstname);
+		details.setLastname(lastname);
+		details.setUsername(username);
+		details.setPassword(password);
+
+		return details;
+	}
 
 	public static User fromUserDetails(UserDetails details) {
-		User user = new User();
-		BeanUtils.copyProperties(details, user);
+		User user = null;		
 		
-	  return user;
-  }
+		if (details != null) {
+			user = new User();
+			BeanUtils.copyProperties(details, user);
+		}
+		return user;
+	}
 
 }
