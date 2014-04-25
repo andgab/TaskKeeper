@@ -58,11 +58,8 @@ public class CreateWorkItemController {
 		}
 
 		LOG.debug("No errors, continue with processing workItem {}:", workItem.getTitle());
-
-		// Set create date and last update to today
+		
 		workItem.setCreateDate(new Date());
-		workItem.setLastUpdate(new Date());
-		workItem.setStatus(WorkItemStatus.OPEND);
 
 		WorkItemCreatedEvent workItemCreatedEvent = workItemService
 		    .createWorkItem(new CreateWorkItemEvent(workItem.toWorkItemDetails()));

@@ -7,7 +7,7 @@ public class WorkItemCommentDetails {
 	private Long id;
 	private String comment;
 	private Date createDate;
-	private WorkItemDetails workItemDetails;
+	private Long workItemId;
 
 	public WorkItemCommentDetails() {
 		id = null;
@@ -41,11 +41,11 @@ public class WorkItemCommentDetails {
 		this.createDate = createDate;
 	}
 
-	public WorkItemDetails getWorkItemDetails() {
-		return workItemDetails;
+	public Long getWorkItemId() {
+		return workItemId;
 	}
 
-	public void setWorkItemDetails(WorkItemDetails workItemDetails) {
-		this.workItemDetails = workItemDetails;
+	public void setWorkItemId(Long workItemId) {
+		this.workItemId = workItemId;
 	}
 }

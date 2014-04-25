@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.taskkeeper.events.workitem.WorkItemCommentDetails;
-import com.taskkeeper.events.workitem.WorkItemDetails;
+
 
 public class WorkItemCommentInfo {
 
@@ -60,11 +60,8 @@ public class WorkItemCommentInfo {
 		workItemCommentDetails.setId(this.id);
 		workItemCommentDetails.setComment(this.comment);
 		workItemCommentDetails.setCreateDate(this.createDate);
+		workItemCommentDetails.setWorkItemId(this.workItemId);
 		
-		WorkItemDetails workItemDetails =  new WorkItemDetails();
-		workItemDetails.setId(this.workItemId);
-		workItemCommentDetails.setWorkItemDetails(workItemDetails);
-
 		return workItemCommentDetails;
 	}
 
@@ -75,7 +72,7 @@ public class WorkItemCommentInfo {
 		workItemCommentInfo.setId(workItemCommentDetails.getId());
 		workItemCommentInfo.setComment(workItemCommentDetails.getComment());
 		workItemCommentInfo.setCreateDate(workItemCommentDetails.getCreateDate());		
-		workItemCommentInfo.setWorkItemId(workItemCommentDetails.getWorkItemDetails().getId());
+		workItemCommentInfo.setWorkItemId(workItemCommentDetails.getWorkItemId());
 
 		return workItemCommentInfo;
 	}

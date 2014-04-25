@@ -115,11 +115,13 @@ public class WorkItem {
 		details.setCreateDate(this.createDate);
 		details.setLastUpdate(this.lastUpdate);
 
-		List<WorkItemCommentDetails> workItemCommentDetails = new ArrayList<WorkItemCommentDetails>();
-		for (WorkItemComment workItemComment : this.getComments()) {
-			workItemCommentDetails.add(workItemComment.toWorkItemCommentDetails());
+		if (this.getComments() != null) {
+			List<WorkItemCommentDetails> workItemCommentDetails = new ArrayList<WorkItemCommentDetails>();
+			for (WorkItemComment workItemComment : this.getComments()) {
+				workItemCommentDetails.add(workItemComment.toWorkItemCommentDetails());
+			}
+			details.setCommentDetails(workItemCommentDetails);
 		}
-		details.setCommentDetails(workItemCommentDetails);
 
 		return details;
 	}
@@ -135,12 +137,14 @@ public class WorkItem {
 		workItem.setDoDate(workItemDetails.getDoDate());
 		workItem.setDoneDate(workItemDetails.getDoneDate());
 		workItem.setLastUpdate(workItemDetails.getLastUpdate());
-		
-    List<WorkItemComment> workItemComments = new ArrayList<WorkItemComment>();
-    for(WorkItemCommentDetails workItemCommentDetails : workItemDetails.getCommentDetails()) {
-    	workItemComments.add(WorkItemComment.fromWorkItemDetails(workItemCommentDetails));
-    }
-    workItem.setComments(workItemComments);
+
+		if (workItemDetails.getCommentDetails() != null) {
+			List<WorkItemComment> workItemComments = new ArrayList<WorkItemComment>();
+			for (WorkItemCommentDetails workItemCommentDetails : workItemDetails.getCommentDetails()) {
+				workItemComments.add(WorkItemComment.fromWorkItemDetails(workItemCommentDetails));
+			}
+			workItem.setComments(workItemComments);
+		}
 
 		return workItem;
 	}

@@ -8,75 +8,73 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 @Entity(name = "work_items")
 public class WorkItem {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-  @Size(max = 45)
-  private String title;
+	@Size(max = 45)
+	private String title;
 
-  @Size(max = 100)
-  private String description;
-  
-  @OneToOne(fetch=FetchType.EAGER)
-  @JoinColumn(name="assigned_to_user_id")
-  private User assignedToUser;
-  
-  @Enumerated(EnumType.ORDINAL)
-  private WorkItemStatus status;
+	@Size(max = 100)
+	private String description;
 
-  @Column(name = "do_date")
-  @Temporal(TemporalType.DATE)
-  private Date doDate;
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "assigned_to_user_id")
+	private User assignedToUser;
 
-  @Column(name = "done_date")
-  @Temporal(TemporalType.DATE)
-  private Date doneDate;
+	@Enumerated(EnumType.ORDINAL)
+	private WorkItemStatus status;
 
-  @Column(name = "create_date_time")
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date createDate;
+	@Column(name = "do_date")
+	@Temporal(TemporalType.DATE)
+	private Date doDate;
 
-  @Column(name = "last_update")
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date lastUpdate;
-  
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "workItem", fetch=FetchType.EAGER)
-  private List<WorkItemComment> workItemComments;
-  
+	@Column(name = "done_date")
+	@Temporal(TemporalType.DATE)
+	private Date doneDate;
 
-  public Long getId() {
-    return id;
-  }
+	@Column(name = "create_date_time")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createDate;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+	@Column(name = "last_update")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdate;
 
-  public String getTitle() {
-    return title;
-  }
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "workItemId", fetch = FetchType.EAGER)
+	private List<WorkItemComment> workItemComments = null;
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+	public Long getId() {
+		return id;
+	}
 
-  public String getDescription() {
-    return description;
-  }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+	public String getTitle() {
+		return title;
+	}
 
-  public User getAssignedToUser() {
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public User getAssignedToUser() {
 		return assignedToUser;
 	}
 
@@ -85,99 +83,99 @@ public class WorkItem {
 	}
 
 	public WorkItemStatus getStatus() {
-    return status;
-  }
+		return status;
+	}
 
-  public void setStatus(WorkItemStatus status) {
-    this.status = status;
-  }
+	public void setStatus(WorkItemStatus status) {
+		this.status = status;
+	}
 
-  public Date getDoDate() {
-    return doDate;
-  }
+	public Date getDoDate() {
+		return doDate;
+	}
 
-  public void setDoDate(Date doDate) {
-    this.doDate = doDate;
-  }
+	public void setDoDate(Date doDate) {
+		this.doDate = doDate;
+	}
 
-  public Date getDoneDate() {
-    return doneDate;
-  }
+	public Date getDoneDate() {
+		return doneDate;
+	}
 
-  public void setDoneDate(Date doneDate) {
-    this.doneDate = doneDate;
-  }
+	public void setDoneDate(Date doneDate) {
+		this.doneDate = doneDate;
+	}
 
-  public Date getCreateDate() {
-    return createDate;
-  }
+	public Date getCreateDate() {
+		return createDate;
+	}
 
-  public void setCreateDate(Date createDate) {
-    this.createDate = createDate;
-  }
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 
-  public Date getLastUpdate() {
-    return lastUpdate;
-  }
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
 
-  public void setLastUpdate(Date lastUpdate) {
-    this.lastUpdate = lastUpdate;
-  }
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
 
-  public List<WorkItemComment> getComments() {
+	public List<WorkItemComment> getComments() {
 		return workItemComments;
 	}
 
 	public void setComments(List<WorkItemComment> workItemComments) {
-    this.workItemComments = workItemComments;
+		this.workItemComments = workItemComments;
 	}
-	
+
 	public WorkItemDetails toWorkItemDetails() {
-    WorkItemDetails details = new WorkItemDetails();
-    
-    details.setId(this.id);
-    details.setTitle(this.title);
-    details.setDescription(this.description);
-    details.setAssignedToUser(this.assignedToUser.toUserDetails());
-    details.setStatus(this.status);
-    details.setDoDate(this.doDate);
-    details.setDoneDate(this.doneDate);
-    details.setCreateDate(this.createDate);
-    details.setLastUpdate(this.lastUpdate);
+		WorkItemDetails details = new WorkItemDetails();
 
-    List<WorkItemCommentDetails> workItemCommentDetails = new ArrayList<WorkItemCommentDetails>();
-    for(WorkItemComment workItemComment : this.getComments())
-    {
-    	workItemCommentDetails.add(workItemComment.toWorkItemCommentDetails());
-    }
-    details.setCommentDetails(workItemCommentDetails);
-    
-    return details;
-  }
+		details.setId(this.id);
+		details.setTitle(this.title);
+		details.setDescription(this.description);
+		details.setAssignedToUser(this.assignedToUser.toUserDetails());
+		details.setStatus(this.status);
+		details.setDoDate(this.doDate);
+		details.setDoneDate(this.doneDate);
+		details.setCreateDate(this.createDate);
+		details.setLastUpdate(this.lastUpdate);
 
-  public static WorkItem fromWorkItemDetails(WorkItemDetails workItemDetails) {
-  	WorkItem workItem = new WorkItem();
-    
-    workItem.setId(workItemDetails.getId());
-    workItem.setTitle(workItemDetails.getTitle());
-    workItem.setDescription(workItemDetails.getDescription());
-    workItem.setAssignedToUser(User.fromUserDetails(workItemDetails.getAssignedToUser()));
-    workItem.setStatus(workItemDetails.getStatus());
-    workItem.setDoDate(workItemDetails.getDoDate());
-    workItem.setDoneDate(workItemDetails.getDoneDate());
-    workItem.setCreateDate(workItemDetails.getCreateDate());
-    workItem.setLastUpdate(workItemDetails.getLastUpdate());
-    
-    List<WorkItemComment> workItemComments = new ArrayList<WorkItemComment>();
-    for(WorkItemCommentDetails workItemCommentDetails : workItemDetails.getCommentDetails())
-    {
-    	workItemComments.add(WorkItemComment.fromWorkItemDetails(workItemCommentDetails));
-    }
-    workItem.setComments(workItemComments);
-    
-    return workItem;
-  }
-  
-  
-  
+		if (this.getComments() != null) {
+			List<WorkItemCommentDetails> workItemCommentDetails = new ArrayList<WorkItemCommentDetails>();
+			for (WorkItemComment workItemComment : this.getComments()) {
+				workItemCommentDetails.add(workItemComment.toWorkItemCommentDetails());
+			}
+			details.setCommentDetails(workItemCommentDetails);
+		}
+
+		return details;
+	}
+
+	public static WorkItem fromWorkItemDetails(WorkItemDetails workItemDetails) {
+		WorkItem workItem = new WorkItem();
+
+		workItem.setId(workItemDetails.getId());
+		workItem.setTitle(workItemDetails.getTitle());
+		workItem.setDescription(workItemDetails.getDescription());
+		workItem.setAssignedToUser(User.fromUserDetails(workItemDetails.getAssignedToUser()));
+		workItem.setStatus(workItemDetails.getStatus());
+		workItem.setDoDate(workItemDetails.getDoDate());
+		workItem.setDoneDate(workItemDetails.getDoneDate());
+		workItem.setCreateDate(workItemDetails.getCreateDate());
+		workItem.setLastUpdate(workItemDetails.getLastUpdate());
+
+		if (workItemDetails.getCommentDetails() != null) {
+			List<WorkItemComment> workItemComments = new ArrayList<WorkItemComment>();
+			for (WorkItemCommentDetails workItemCommentDetails : workItemDetails.getCommentDetails()) {
+				workItemComments.add(WorkItemComment.fromWorkItemDetails(workItemCommentDetails));
+			}
+			workItem.setComments(workItemComments);
+		}
+
+		return workItem;
+	}
+
 }

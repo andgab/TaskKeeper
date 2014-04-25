@@ -154,7 +154,7 @@ public class WorkItemInfo implements Serializable {
 		details.setDoneDate(this.doneDate);
 		details.setCreateDate(this.createDate);
 		details.setLastUpdate(this.lastUpdate);
-		
+
 		details.setCommentDetails(null);
 
 		return details;
@@ -175,11 +175,14 @@ public class WorkItemInfo implements Serializable {
 		workItem.setCreateDate(workItemDetails.getCreateDate());
 		workItem.setLastUpdate(workItemDetails.getLastUpdate());
 
-		List<WorkItemCommentInfo> workItemCommentInfo = new ArrayList<WorkItemCommentInfo>();
-		for (WorkItemCommentDetails workItemCommentDetails : workItemDetails.getCommentDetails()) {
-			workItemCommentInfo.add(WorkItemCommentInfo.fromWorkItemCommentDetails(workItemCommentDetails));
+		if (workItemDetails.getCommentDetails() != null) {
+			List<WorkItemCommentInfo> workItemCommentInfo = new ArrayList<WorkItemCommentInfo>();
+			for (WorkItemCommentDetails workItemCommentDetails : workItemDetails.getCommentDetails()) {
+				workItemCommentInfo.add(WorkItemCommentInfo
+				    .fromWorkItemCommentDetails(workItemCommentDetails));
+			}
+			workItem.setComments(workItemCommentInfo);
 		}
-		workItem.setComments(workItemCommentInfo);
 
 		return workItem;
 	}

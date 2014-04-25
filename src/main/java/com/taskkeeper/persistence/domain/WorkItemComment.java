@@ -8,13 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.taskkeeper.events.workitem.WorkItemCommentDetails;
 
@@ -34,10 +30,8 @@ public class WorkItemComment {
   private Date createDate;
  
   @JoinColumn(name="work_item_id", referencedColumnName="id")
-  @ManyToOne(optional = false)
-  private WorkItem workItem;
-  
-  
+  private Long workItemId;
+    
 	public Long getId() {
 		return id;
 	}
@@ -62,12 +56,12 @@ public class WorkItemComment {
 		this.createDate = createDate;
 	}
 
-	public WorkItem getWorkItem() {
-		return workItem;
+	public Long getWorkItemId() {
+		return workItemId;
 	}
 
-	public void setWorkItem(WorkItem workItem) {
-		this.workItem = workItem;
+	public void setWorkItemId(Long workItemId) {
+		this.workItemId = workItemId;
 	}	
 
 	public WorkItemCommentDetails toWorkItemCommentDetails() {
@@ -76,7 +70,7 @@ public class WorkItemComment {
 		workItemCommentDetails.setId(this.id);
 		workItemCommentDetails.setComment(this.comment);
 		workItemCommentDetails.setCreateDate(this.createDate);
-		workItemCommentDetails.setWorkItemDetails(this.getWorkItem().toWorkItemDetails());
+		workItemCommentDetails.setWorkItemId(this.getWorkItemId());
 				
 		return workItemCommentDetails;
 	}
@@ -87,7 +81,7 @@ public class WorkItemComment {
 		workItemComment.setId(workItemCommentDetails.getId());
 		workItemComment.setComment(workItemCommentDetails.getComment());
 		workItemComment.setCreateDate(workItemCommentDetails.getCreateDate());
-		workItemComment.setWorkItem(WorkItem.fromWorkItemDetails(workItemCommentDetails.getWorkItemDetails()));
+		workItemComment.setWorkItemId(workItemCommentDetails.getWorkItemId());
 		
 		return workItemComment;
 	}

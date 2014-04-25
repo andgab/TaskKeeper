@@ -3,6 +3,7 @@ package com.taskkeeper.core.services;
 import java.util.Date;
 
 import com.taskkeeper.core.domain.WorkItem;
+import com.taskkeeper.core.domain.WorkItemStatus;
 import com.taskkeeper.events.workitem.*;
 import com.taskkeeper.persistence.domain.WorkItemComment;
 import com.taskkeeper.persistence.services.WorkItemPersistenceService;
@@ -19,10 +20,15 @@ public class WorkItemEventHandler implements WorkItemService {
 	public WorkItemCreatedEvent createWorkItem(CreateWorkItemEvent createWorkItemEvent) {
 		WorkItem workItem = WorkItem.fromWorkItemDetails(createWorkItemEvent.getDetails());
 
+		// Set create date and last update to today
+		workItem.setLastUpdate(new Date());
+		workItem.setStatus(WorkItemStatus.OPEND);
+
 		// TODO, add validation of menu items
 		// TODO, add order total calculation
 		// TODO, add order time estimate calculation
-		WorkItemCreatedEvent event = workItemPersistenceService.createWorkItem(createWorkItemEvent);
+		WorkItemCreatedEvent event = workItemPersistenceService.createWorkItem(new CreateWorkItemEvent(
+		    workItem.toWorkItemDetails()));
 		return event;
 	}
 
